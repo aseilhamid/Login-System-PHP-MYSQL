@@ -1,4 +1,6 @@
 <?php
+session_start();
+     
 $status = true;
 $error_msg = array('name' => '', 'email' => '', 'password' => '', 'phone' => '', 'address' => '');
 $name = $email = $password = $phone = $address = $hashpassword = "";
@@ -69,12 +71,13 @@ if (isset($_POST['submit'])) {
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("sssss",$name, $email, $hashpassword, $phone, $address);
     if($stmt->execute()){
-      session_start();
       $_SESSION['loggedin'] = true;
+
       echo "<script>";
-      echo " alert(('Registeration successfully Done.'));      
-      </script>";
-      header("Location: home.php?name=".$name);
+      echo " alert(('Registeration successfully Done.'));";
+      echo 'window.location.href="home.php?name= '.$name .'";    
+              </script>';
+
       $stmt->close();
     }else {
       echo "Connection error ";
