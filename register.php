@@ -69,6 +69,8 @@ if (isset($_POST['submit'])) {
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("sssss",$name, $email, $hashpassword, $phone, $address);
     if($stmt->execute()){
+      session_start();
+      $_SESSION['loggedin'] = true;
       echo "<script>";
       echo " alert(('Registeration successfully Done.'));      
       </script>";
